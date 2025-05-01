@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vocabulary Matching</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #f2f2f2, #dfe9f3);
+      padding: 40px;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-top: 40px;
+    }
+    .box {
+      padding: 10px;
+      border-radius: 10px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      cursor: move;
+    }
+    .droptarget {
+      padding: 20px;
+      border: 2px dashed #aaa;
+      border-radius: 10px;
+      min-height: 50px;
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Match the Words with Their Meanings</h2>
+<p>Drag the vocabulary word to the matching definition.</p>
+
+<div class="container" id="match-area">
+  <div>
+    <div class="box" draggable="true" id="anxiety">Anxiety</div>
+    <div class="box" draggable="true" id="barrier">Barrier</div>
+    <div class="box" draggable="true" id="coping">Coping</div>
+    <div class="box" draggable="true" id="courage">Courage</div>
+    <div class="box" draggable="true" id="empathy">Empathy</div>
+    <div class="box" draggable="true" id="extensive">Extensive</div>
+    <div class="box" draggable="true" id="fitin">Fit in</div>
+    <div class="box" draggable="true" id="foundation">Foundation</div>
+    <div class="box" draggable="true" id="negotiate">Negotiate</div>
+    <div class="box" draggable="true" id="selffulfillment">Self-fulfillment</div>
+    <div class="box" draggable="true" id="shame">Shame</div>
+  </div>
+  <div>
+    <div class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)" data-word="anxiety">A feeling of worry, nervousness, or unease about something with an uncertain outcome.</div>
+    <div class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)" data-word="barrier">Something that blocks or prevents progress or movement.</div>
+    <div class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)" data-word="coping">Dealing effectively with something difficult.</div>
+    <div class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)" data-word="courage">The ability to do something that frightens one; bravery.</div>
+    <div class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)" data-word="empathy">The ability to understand and share the feelings of another.</div>
+    <div class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)" data-word="extensive">Large in amount or scale; covering a wide area.</div>
+    <div class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)" data-word="fitin">To feel accepted and part of a group.</div>
+    <div class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)" data-word="foundation">The base or starting point of something important.</div>
+    <div class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)" data-word="negotiate">To discuss in order to reach an agreement.</div>
+    <div class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)" data-word="selffulfillment">The realization of one’s own potential or talents.</div>
+    <div class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)" data-word="shame">A painful feeling of embarrassment or guilt.</div>
+  </div>
+</div>
+
+<script>
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  var dropped = document.getElementById(data);
+  if (ev.target.getAttribute('data-word') === data) {
+    ev.target.innerHTML = '';
+    ev.target.appendChild(dropped);
+  } else {
+    alert("That is not the correct match. Try again.");
+  }
+}
+
+document.querySelectorAll('.box').forEach(box => {
+  box.addEventListener('dragstart', drag);
+});
+</script>
+
+</body>
+</html>
